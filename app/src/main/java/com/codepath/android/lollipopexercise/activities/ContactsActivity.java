@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +24,7 @@ public class ContactsActivity extends AppCompatActivity {
     private RecyclerView rvContacts;
     private ContactsAdapter mAdapter;
     private List<Contact> contacts;
-    RelativeLayout rlSnacAction;
+    CoordinatorLayout clSnacAction;
 
     private final int NEW_CONTACT_POSTIION = 0;
 
@@ -35,7 +36,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         // Find RecyclerView and bind to adapter
         rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
-        rlSnacAction = (RelativeLayout) findViewById(R.id.rlMainContent);
+        clSnacAction = (CoordinatorLayout) findViewById(R.id.rlMainContent);
 
         // allows for optimizations
         rvContacts.setHasFixedSize(true);
@@ -91,7 +92,7 @@ public class ContactsActivity extends AppCompatActivity {
         };
 
 // Pass in the click listener when displaying the Snackbar
-        Snackbar.make(rlSnacAction, R.string.snackbarText, Snackbar.LENGTH_LONG)
+        Snackbar.make(clSnacAction, R.string.snackbarText, Snackbar.LENGTH_LONG)
                 .setAction("Undo", myOnClickListener)
                 .setDuration(3000).show();
         mAdapter.notifyDataSetChanged();
