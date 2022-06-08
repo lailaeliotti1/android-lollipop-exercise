@@ -1,8 +1,11 @@
 package com.codepath.android.lollipopexercise.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codepath.android.lollipopexercise.R;
 import com.codepath.android.lollipopexercise.adapters.ContactsAdapter;
 import com.codepath.android.lollipopexercise.models.Contact;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -19,6 +23,8 @@ public class ContactsActivity extends AppCompatActivity {
     private RecyclerView rvContacts;
     private ContactsAdapter mAdapter;
     private List<Contact> contacts;
+    RelativeLayout rlSnacAction;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         // Find RecyclerView and bind to adapter
         rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+        rlSnacAction = (RelativeLayout) findViewById(R.id.rlMainContent);
 
         // allows for optimizations
         rvContacts.setHasFixedSize(true);
@@ -46,6 +53,9 @@ public class ContactsActivity extends AppCompatActivity {
 
         // Bind adapter to list
         rvContacts.setAdapter(mAdapter);
+
+        // Define the click listener as a member
+
     }
 
     @Override
@@ -63,5 +73,24 @@ public class ContactsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onComposeAction(MenuItem item) {
+        Log.i("bar", "bar clicked.");
+        contacts.add(Contact.getRandomContact(ContactsActivity.this));
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do something here
+            }
+        };
+
+// Pass in the click listener when displaying the Snackbar
+        Snackbar.make(rlSnacAction, R.string.snackbarText, Snackbar.LENGTH_LONG)
+                .setAction("Undo", myOnClickListener)
+                .setDuration(3000).show();
+        mAdapter.notifyDataSetChanged();
+
+
     }
 }
