@@ -83,7 +83,7 @@ public class ContactsActivity extends AppCompatActivity {
         View.OnClickListener myOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contacts.remove(.setDuration(3000));
+                contacts.remove(NEW_CONTACT_POSTIION);
                 mAdapter.notifyDataSetChanged();
                 Log.i("snacbar", "undo button clicked");
                 // Do something here
